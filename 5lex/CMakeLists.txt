@@ -1,1 +1,4 @@
 add_executable(5_2_1_2_slash 5_2_1_2_slash.cc)
+add_executable(5_2_1_6_adj_strlit_concat 5_2_1_6_adj_strlit_concat.cc)
+add_executable(5_3_2_universal_character_name 5_3_2_universal_character_name.cc)
+add_executable(5_5_digraph 5_5_digraph.cc)

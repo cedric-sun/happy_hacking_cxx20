@@ -3,8 +3,8 @@
 #include <cstdio>
 
 int main() {
-    std::pri\
-ntf("Logical line can break into physi\
+    std::pu\
+ts("Logical line can break into physi\
 cal line by back\
 slash followed by newline immediately.");
 }
