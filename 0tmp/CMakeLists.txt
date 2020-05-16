@@ -1,0 +1,2 @@
+add_executable(hasinclude hasinclude.cc)
+add_executable(preprocessor_stringify preprocessor_stringify.cc)
