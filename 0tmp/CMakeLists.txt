@@ -1,2 +1,3 @@
+add_executable(fake_arr_para fake_arr_para.cc)
 add_executable(hasinclude hasinclude.cc)
 add_executable(preprocessor_stringify preprocessor_stringify.cc)
