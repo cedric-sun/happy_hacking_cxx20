@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <climits>
+#include <cstdint> // WCHAR_MAX/MIN
 
 #define STR_HELPER(x) #x
 #define STR(x) STR_HELPER(x)
@@ -11,5 +12,6 @@ int main() {
     PRINT_TYPE_INFO(int, INT_MAX, INT_MIN);
     PRINT_TYPE_INFO(long, LONG_MAX, LONG_MIN);
     PRINT_TYPE_INFO(long long, LONG_LONG_MAX, LONG_LONG_MIN);
+    PRINT_TYPE_INFO(wchar_t, WCHAR_MAX, WCHAR_MIN);
     return 0;
 }

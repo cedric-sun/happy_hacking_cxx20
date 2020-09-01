@@ -79,9 +79,11 @@ namespace character_literal {
 
         // hex escape
         // 5.13.3.7: There is no limit to the number of digits in a hexadecimal sequence.
-        // but if value fall out of range of:
+        // but if value fall out of range of its type:
         //      char(no prefix) & wchar_t(L): value is implementation-defined
         //      utf8(u8)/16(u)/32(U) char: program is ill-formed
+        VALUE_TYPE_PRINT('\x6');
+        VALUE_TYPE_PRINT('\x61');
         VALUE_TYPE_PRINT('\x616161');
         wchar_t wc = L'\xafafafaf';
 
@@ -93,6 +95,8 @@ namespace character_literal {
         //      none:    5.13.3.1 `ordinary character literal`
         char c0 = 'x';
         VALUE_TYPE_PRINT('21'); // conditionally-supported multicharacter literal
+//        VALUE_TYPE_PRINT('旅');  // 旅 is turned into UCN \u65c5 in phase 1 TODO: (undefined behav?)
+        // gcc 10.1 treats this as a multicharacter literal; clang10 doesn't compile.
 
         //      u8:      `UTF-8 character literal` of type char8_t
         char8_t utf8char = u8'x'; // [U+00, U+7f] ; 1 utf-8 code unit = 1 byte
@@ -101,7 +105,7 @@ namespace character_literal {
         //      U:       `UTF-32 character literal` of type char32_t
         char32_t utf32char = U'\U0001f34c'; // can represent any code point; TODO: use emoji after JBR-410 fixed
         //      L:       wide-character literal of type wchar_t
-        wchar_t wchar = L'猫'; // TODO
+        wchar_t wide_char = L'猫'; // TODO
     }
 }
 
@@ -157,10 +161,14 @@ namespace floating_point_literal {
 }
 
 namespace string_literal {
+    // 5.13.5.14 Evaluating a string-literal results in a string
+    // literal object with static storage duration
+
     void encoding_prefix() {
         // "ordinary string literal"
-        // (5.13.5.5) type: const char [n]    !! STORAGE DURATION: STATIC !!
-        TYPE_PRINT("廃線「ぶらり廃駅下車の旅」");
+        // type: const char [n]
+        TYPE_PRINT("ordinary string literal");
+        TYPE_PRINT("廃線「ぶらり廃駅下車の旅」"); // TODO: undefined behavior?
 
         // type: const char8_t [n]
         TYPE_PRINT(u8"廃線「ぶらり廃駅下車の旅」");
@@ -183,13 +191,25 @@ namespace string_literal {
         TYPE_PRINT(R"x("(" ")")x");
         TYPE_PRINT(R"(("""))"); // empty delimiter, r-char-sequence cannot contain )"
         TYPE_PRINT(u8R"(廃線「ぶらり廃駅下車の旅」)"); // orthogonal to encoding
+        TYPE_PRINT(u8R"(a newline within raw string in source
+produce a newline in the literal.)");
+    }
+
+    void concat() {
+        TYPE_PRINT(U"廃線「ぶらり" U"廃駅下車の旅」"); // same + same = still the same
+        TYPE_PRINT("none prefix" u8"廃線「ぶらり廃駅下車の旅」"); // none + (u8/u/U/L) = u8/u/U/L
+        //TYPE_PRINT(u8"廃線「ぶらり" L"廃駅下車の旅」"); // u8 + L is explicitly prohibited
+
+        // any other concatenation is conditionally-supported
+//        TYPE_PRINT(u8"廃線「ぶらり廃駅下車の旅」" u"\U00001f34c"); // gcc 10.1 and clang 10.0 don't compile
     }
 
     void demo() {
         encoding_prefix();
         cout << "---------------------------------" << endl;
         raw_string_literal();
-        //TODO
+        cout << "---------------------------------" << endl;
+        concat();
     }
 }
 
@@ -203,9 +223,7 @@ void pointer_literal() {
 }
 
 namespace user_defined_literal {
-    class A {
-        operator "" X
-    };
+    //TODO
 }
 
 int main() {
