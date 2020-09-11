@@ -17,7 +17,8 @@ int main() {
 //    int 猫 = 42; // error: redefinition
 
 //    char \u0061 = 5; // error: member of BSCS cannot be written as universal-character-name
-    int \U0001f34c = 45; // banana; TODO: use emoji rather than UCN after jetbrains support JBR-410
+    int 🍌 = 99;
+    //int \U0001f34c = 45; //error: redeclaration of ‘int 🍌’
     std::printf("\U0001f34c: %d\n",\U0001f34c);
 }
 

@@ -1,0 +1,4 @@
+add_executable(6_2_2_pure_declaration 6_2_2_pure_declaration.cc)
+add_executable(6_3_12_complete_type 6_3_12_complete_type.cc)
+add_executable(6_3_ODR 6_3_ODR.cc)
+add_executable(6_7_7_tmp_obj 6_7_7_tmp_obj.cc)

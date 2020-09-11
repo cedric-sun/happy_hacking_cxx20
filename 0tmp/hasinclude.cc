@@ -4,7 +4,7 @@
 
 /*
 Preprocessor constant expression that evaluates to 1 if the file name is found (on disk)
-and ​0​ if not. The program is ill-formed if the argument would not be a valid argument to
+and 0 if not. The program is ill-formed if the argument would not be a valid argument to
  the #include directive.
  */
 int main() {

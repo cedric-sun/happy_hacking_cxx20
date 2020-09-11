@@ -4,7 +4,7 @@
 #include <climits>
 #include <iomanip>
 //#include <format>
-#include "../util/type_name.cc"
+#include "../util/type_name.h"
 
 using std::cout;
 using std::endl;
