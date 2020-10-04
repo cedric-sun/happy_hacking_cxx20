@@ -7,6 +7,7 @@ add_subdirectory(0tmp)
 add_subdirectory(5lex)
 add_subdirectory(6basics)
 add_subdirectory(25algorithm)
+add_subdirectory(20utility)
 
 
 add_executable(env env.cc)
